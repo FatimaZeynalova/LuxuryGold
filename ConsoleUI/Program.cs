@@ -4,23 +4,28 @@ using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Microsoft.EntityFrameworkCore;
 
-//ProductTest();
+ProductTest();
 
-CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
-foreach (var category in categoryManager.GetAll())
-{
-	Console.WriteLine(category.Name);
-}
+//CategoryTest();
 
 
+//9bitti
 
 static void ProductTest()
 {
 	ProductManager productManager = new ProductManager(new EfProductDal());
 
-	foreach (var product in productManager.GetAllByCategoryId(1))
+	foreach (var product in productManager.GetProductDetails())
 	{
-		Console.WriteLine(product.Name);
+		Console.WriteLine(product.ProductName+"/"+product.CategoryName);
 	}
 }
 
+static void CategoryTest()
+{
+	CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
+	foreach (var category in categoryManager.GetAll())
+	{
+		Console.WriteLine(category.Name);
+	}
+}
