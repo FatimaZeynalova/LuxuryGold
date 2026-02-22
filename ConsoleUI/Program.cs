@@ -1,15 +1,26 @@
-﻿// See https://aka.ms/new-console-template for more information
-using Business.Concrete;
+﻿using Business.Concrete;
+using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Microsoft.EntityFrameworkCore;
 
+//ProductTest();
 
-ProductManager productManager = new ProductManager(new EfProductDal());
-	
-foreach (var product in productManager.GetAllByCategoryId(1))
+CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
+foreach (var category in categoryManager.GetAll())
 {
-	Console.WriteLine(product.Name);
+	Console.WriteLine(category.Name);
 }
 
+
+
+static void ProductTest()
+{
+	ProductManager productManager = new ProductManager(new EfProductDal());
+
+	foreach (var product in productManager.GetAllByCategoryId(1))
+	{
+		Console.WriteLine(product.Name);
+	}
+}
 

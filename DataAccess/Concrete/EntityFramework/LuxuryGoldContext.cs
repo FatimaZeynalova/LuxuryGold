@@ -17,6 +17,23 @@ namespace DataAccess.Concrete.EntityFramework
 		}
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Product> Products { get; set; }
+		public DbSet<ProductImage> ProductImages { get; set; }
+		public DbSet<Customer> Customers { get; set; }
+		public DbSet<Order> Orders { get; set; }
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Product>()
+				.HasMany(p => p.Images)
+				.WithOne(i => i.Product)
+				.HasForeignKey(i => i.ProductId)
+				.OnDelete(DeleteBehavior.Cascade);
+
+			modelBuilder.Entity<ProductImage>()
+				.Property(i => i.Url)
+				.IsRequired();
+		}
+
 
 	}
 }

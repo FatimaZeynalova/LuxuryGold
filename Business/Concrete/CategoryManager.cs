@@ -11,6 +11,11 @@ namespace Business.Concrete
 {
 	public class CategoryManager : ICategoryService
 	{
+		private readonly ICategoryDal _categoryDal;
+		public CategoryManager(ICategoryDal categoryDal)
+		{
+			_categoryDal = categoryDal;
+		}
 		public void Add(Category category)
 		{
 			throw new NotImplementedException();
@@ -23,12 +28,17 @@ namespace Business.Concrete
 
 		public List<Category> GetAll()
 		{
-			throw new NotImplementedException();
+			return _categoryDal.GetAll();
 		}
 
 		public void Update(Category category)
 		{
 			throw new NotImplementedException();
+		}
+
+		Category ICategoryService.GetById(int categoryId)
+		{
+			return _categoryDal.Get(c => c.CategoryId == categoryId);
 		}
 	}
 }

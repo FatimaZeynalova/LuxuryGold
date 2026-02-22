@@ -1,11 +1,7 @@
-﻿using Entities.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Core.Entities;
 
 namespace Entities.Concrete
+
 {
 	public class Product: IEntity
 	{
@@ -19,6 +15,6 @@ namespace Entities.Concrete
 		public Category Category { get; set; }
 		public bool IsFeatured { get; set; } = false;
 		public bool IsActive { get; set; } = true;
-		public ICollection<string>? ImageUrls { get; set; } = new List<string>();
+		public ICollection<ProductImage> Images { get; set; }
 	}
 }
