@@ -1,8 +1,10 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,29 +18,36 @@ namespace Business.Concrete
 		{
 			_categoryDal = categoryDal;
 		}
-		public void Add(Category category)
+		public IResult Add(Category category)
 		{
-			throw new NotImplementedException();
+			_categoryDal.Add(category);
+			return new SuccessResult("Category added successfully.");
 		}
 
-		public void Delete(Category category)
+		public IResult Delete(Category category)
 		{
-			throw new NotImplementedException();
+			_categoryDal.Delete(category);
+			return new SuccessResult("Category deleted successfully.");
 		}
 
-		public List<Category> GetAll()
+		public IDataResult<List<Category>> GetAll()
 		{
-			return _categoryDal.GetAll();
+			if (DateTime.Now.Hour == 23)
+			{
+				return new ErrorDataResult<List<Category>>("System is under maintenance.");
+			}
+			return new SuccessDataResult<List<Category>>(_categoryDal.GetAll());
+
+		}
+		public IResult Update(Category category)
+		{
+			_categoryDal.Update(category);
+			return new SuccessResult("Category updated successfully.");
 		}
 
-		public void Update(Category category)
+		IDataResult<Category> ICategoryService.GetById(int categoryId)
 		{
-			throw new NotImplementedException();
-		}
-
-		Category ICategoryService.GetById(int categoryId)
-		{
-			return _categoryDal.Get(c => c.CategoryId == categoryId);
+			return new SuccessDataResult<Category>(_categoryDal.Get(c => c.CategoryId == categoryId));
 		}
 	}
 }
