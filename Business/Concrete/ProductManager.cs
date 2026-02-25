@@ -1,9 +1,13 @@
 ﻿using Business.Abstract;
+using Business.Aspects.Autofac.Validation;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 
 namespace Business.Concrete
 {
@@ -18,21 +22,19 @@ namespace Business.Concrete
 
 		public IDataResult<List<Product>> GetAll()
 		{
-			if (DateTime.Now.Hour == 23)
+			if (DateTime.Now.Hour == 20)
 			{
 				return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
 			}
 
-			return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductListed) ;
+			return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductListed);
 		}
 
+		[ValidationAspect(typeof(ProductValidator))]
 		public IResult Add(Product product)
 		{
-			if (product.Name.Length < 2)
-			{
-				return new ErrorResult(Messages.ProductNameInvalid);
-			}
-
+			//business codes
+			
 			_productDal.Add(product);
 			return new SuccessResult(Messages.ProductAdded);
 		}
@@ -51,12 +53,12 @@ namespace Business.Concrete
 
 		public IDataResult<List<Product>> GetAllByCategoryId(int categoryId)
 		{
-			return new SuccessDataResult<List<Product>>( _productDal.GetAll(p => p.CategoryId == categoryId));
+			return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == categoryId));
 		}
 
 		public IDataResult<List<Product>> GetAllByUnitPrice(decimal min, decimal max)
 		{
-			return new SuccessDataResult<List<Product>>( _productDal.GetAll(p => p.Price >= min && p.Price <= max));
+			return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.Price >= min && p.Price <= max));
 		}
 
 		public IDataResult<List<ProductDetailDto>> GetProductDetails()
@@ -65,7 +67,7 @@ namespace Business.Concrete
 			{
 				return new ErrorDataResult<List<ProductDetailDto>>(Messages.MaintenanceTime);
 			}
-			return new SuccessDataResult<List<ProductDetailDto>>( _productDal.GetProductDetails());
+			return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails());
 		}
 
 		public IDataResult<Product> GetById(int productId)

@@ -18,6 +18,6 @@ namespace Business.Constants
 		public static string CategoryUpdated = "Category updated successfully.";
 		public static string MaintenanceTime = "System is under maintenance. Please try again later.";
 
-
+		public static string ProductPriceInvalid ="Product price must be greater than zero.";
 	}
 }
