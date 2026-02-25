@@ -18,6 +18,9 @@ namespace Business.Constants
 		public static string CategoryUpdated = "Category updated successfully.";
 		public static string MaintenanceTime = "System is under maintenance. Please try again later.";
 
-		public static string ProductPriceInvalid ="Product price must be greater than zero.";
+		public static string ProductPriceInvalid = "Product price must be greater than zero.";
+		public static string ProductCountOfCategoryError = "There can only be 10 products in a category.";
+		public static string ProductNameAlreadyExists="Product name is already exists.";
+		internal static string CategoryLimitExceded= "You cannot add a new product to the category because you have exceeded the limit.";
 	}
 }

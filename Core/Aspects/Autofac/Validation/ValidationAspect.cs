@@ -8,13 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.Aspects.Autofac.Validation
+namespace Core.Aspects.Autofac.Validation
 {
 	public class ValidationAspect : MethodInterception
 	{
 		private Type _validatorType;
 		public ValidationAspect(Type validatorType)
 		{
+			//defensive coding
 			if (!typeof(IValidator).IsAssignableFrom(validatorType))
 			{
 				throw new System.Exception("This is not a validation class.");
@@ -32,5 +33,7 @@ namespace Business.Aspects.Autofac.Validation
 				ValidationTool.Validate(validator, entity);
 			}
 		}
+
+
 	}
 }
