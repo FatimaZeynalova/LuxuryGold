@@ -22,5 +22,7 @@ namespace Business.Constants
 		public static string ProductCountOfCategoryError = "There can only be 10 products in a category.";
 		public static string ProductNameAlreadyExists="Product name is already exists.";
 		internal static string CategoryLimitExceded= "You cannot add a new product to the category because you have exceeded the limit.";
+
+		public static string? AuthorizationDenied { get; internal set; }
 	}
 }

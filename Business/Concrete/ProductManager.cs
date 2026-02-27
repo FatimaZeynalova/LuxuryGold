@@ -10,6 +10,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using FluentValidation;
 using Core.Utilities.Business;
+using Business.BusinessAspects.Autofac;
 
 namespace Business.Concrete
 {
@@ -35,6 +36,8 @@ namespace Business.Concrete
 			return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductListed);
 		}
 
+		
+		[SecuredOperation("product.add,admin")]
 		[ValidationAspect(typeof(ProductValidator))]
 		public IResult Add(Product product)
 		{
@@ -47,7 +50,6 @@ namespace Business.Concrete
 			{
 				return result;
 			}
-
 			_productDal.Add(product);
 			return new SuccessResult(Messages.ProductAdded);
 		}
