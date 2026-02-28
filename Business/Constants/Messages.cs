@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,8 +22,14 @@ namespace Business.Constants
 		public static string ProductPriceInvalid = "Product price must be greater than zero.";
 		public static string ProductCountOfCategoryError = "There can only be 10 products in a category.";
 		public static string ProductNameAlreadyExists="Product name is already exists.";
-		internal static string CategoryLimitExceded= "You cannot add a new product to the category because you have exceeded the limit.";
+		public static string CategoryLimitExceded= "You cannot add a new product to the category because you have exceeded the limit.";
 
-		public static string? AuthorizationDenied { get; internal set; }
+		public static string AuthorizationDenied = "You don't have authority ";
+		internal static string UserNotFound= "User not found. ";
+		internal static string PasswordError= "The password is incorrect.";
+		internal static string SuccessfulLogin= "Login successful.";
+		internal static string UserAlreadyExists= "User available.";
+		internal static string AccessTokenCreated="Token generated.";
+		internal static string UserRegistered= "User registered.";
 	}
 }
